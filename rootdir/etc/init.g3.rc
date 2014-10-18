@@ -168,6 +168,8 @@ on boot
     # Vibrator
     chown system system /sys/class/timed_output/vibrator/amp
     chmod 0660 /sys/class/timed_output/vibrator/amp
+    chown system system /sys/class/timed_output/vibrator/enable
+    chmod 0660 /sys/class/timed_output/vibrator
 
     chown root system /sys/devices/platform/tspdrv/nforce_timed
     chmod 0664 /sys/devices/platform/tspdrv/nforce_timed
