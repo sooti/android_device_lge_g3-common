@@ -89,9 +89,15 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     bdAddrLoader
 
+
 # Camera
 PRODUCT_PACKAGES += \
-    camera.msm8974
+    libqomx_core \
+    libmmcamera_interface \
+    libmmjpeg_interface \
+    camera.msm8974 \
+    mm-jpeg-interface-test \
+    mm-qcamera-app
 
 # Display
 PRODUCT_PACKAGES += \
