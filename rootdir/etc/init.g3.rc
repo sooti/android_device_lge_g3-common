@@ -472,15 +472,6 @@ service amp_unload /system/bin/amploader -u
     disabled
     oneshot
 
-service atd /system/bin/atd /dev/ttyGS0 /dev/smd0
-   socket atd stream 0660 system inet
-   disabled
-
-service atfwd /system/bin/ATFWD-daemon
-    class late_start
-    user system
-    group system radio
-
 service audiod /system/bin/audiod
    class late_start
    user system
@@ -505,12 +496,6 @@ service bluetoothd /system/bin/logwrapper /system/bin/bluetoothd -n
     # let bluetoothd drop uid to bluetooth with the right linux capabilities
     group bluetooth net_bt_admin misc net_bt_stack
     disabled
-
-service bnrd /system/bin/bnrd
-    class main
-    socket bnrd stream 660 root system
-    user root
-    group system radio sdcard_rw
 
 service bridgemgrd /system/bin/bridgemgrd
     class late_start
@@ -549,10 +534,6 @@ service bugreport /system/bin/bugmailer.sh -v
 
 service charger /charger
     class charger
-
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
 
 service dbus /system/bin/dbus-daemon --system --nofork
     class main
@@ -660,11 +641,6 @@ service fuse_usbdisk0 /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk0 
     class late_start
     disabled
 
-service gbmonitor /system/bin/gbmonitor
-   class main
-   user system
-   group system
-
 service gsiff_daemon /system/bin/gsiff_daemon
     class late_start
     user gps
@@ -693,12 +669,6 @@ service ims_regmanager /system/bin/exe-ims-regmanagerprocessnative
     group qcom_oncrpc net_bt_admin inet radio wifi
     disabled
 
-service immvibed /system/bin/immvibed
-    class main
-    user shell
-    group shell system
-    oneshot
-
 service iprenew_bt-pan /system/bin/dhcpcd -n
     class late_start
     disabled
@@ -718,11 +688,6 @@ service ipsecclient /system/bin/ipsecclient
     class main
     group system net_admin net_raw
     disabled
-
-service ipsecstarter /system/bin/ipsecstarter
-    class main
-    user system
-    group system net_admin net_raw
 
 service irsc_util /system/bin/logwrapper /system/bin/irsc_util "/etc/sec_config"
     class main
@@ -781,11 +746,6 @@ service lowi-server /system/bin/lowi-server
 service mpdecision /system/bin/mpdecision --avg_comp
     user root
     disabled
-
-service mtsd /system/bin/mtsd
-    class late_start
-    oneshot
-    socket mtsd.port stream 660 system system
 
 service netmgrd /system/bin/netmgrd
     class main
@@ -850,11 +810,6 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
-
-service qgesturesvr /system/bin/mm-gesture-daemon
-    class late_start
-    user system
-    group system camera input graphics net_bt_stack
 
 service qcom-c_core-sh /system/bin/sh /init.galbi.class_core.sh
     class core
@@ -977,11 +932,6 @@ service time_daemon /system/bin/time_daemon
    class late_start
    user root
    group root
-
-service ufips /system/bin/ufips
-    class core
-    user system
-    group system
 
 service usbdebug-manager /system/bin/usbdebug-manager
     class late_start
@@ -1241,9 +1191,6 @@ on property:persist.usb.chgdisabled=0
 on property:persist.usb.chgdisabled=1
     write /sys/class/power_supply/battery/charging_enabled 0
 
-on property:ro.baseband="msm"
-   start atd
-
 on property:ro.bluetooth.ftm_enabled=true
     start ftmd
 
@@ -1277,12 +1224,6 @@ on property:sys.boot_completed=1
 on property:sys.lge.touchfirmware.update=1
     write /sys/devices/virtual/input/lge_touch/firmware 1
     setprop sys.lge.touchfirmware.update 2
-
-on property:sys.mts.forcemts=1
-    start mtsd
-
-on property:sys.mts.forcemts=0
-    stop mtsd
 
 on property:vold.decrypt=trigger_restart_framework
     start sensors
