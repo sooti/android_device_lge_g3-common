@@ -1068,13 +1068,10 @@ int QCamera2HardwareInterface::openCamera(struct hw_device_t **hw_device)
  *==========================================================================*/
 int QCamera2HardwareInterface::openCamera()
 {
-    int32_t l_curr_width = 0;
-    int32_t l_curr_height = 0;
-    m_max_pic_width = 0;
-    m_max_pic_height = 0;
+    m_max_pic_width = 4160;
+    m_max_pic_height = 3120;
     char value[PROPERTY_VALUE_MAX];
     int enable_4k2k;
-    int i;
 
     if (mCameraHandle) {
         ALOGE("Failure: Camera already opened");
@@ -1092,18 +1089,6 @@ int QCamera2HardwareInterface::openCamera()
                                               camEvtHandle,
                                               (void *) this);
 
-    /* get max pic size for jpeg work buf calculation*/
-    for(i = 0; i < gCamCapability[mCameraId]->picture_sizes_tbl_cnt - 1; i++)
-    {
-      l_curr_width = gCamCapability[mCameraId]->picture_sizes_tbl[i].width;
-      l_curr_height = gCamCapability[mCameraId]->picture_sizes_tbl[i].height;
-
-      if ((l_curr_width * l_curr_height) >
-        (m_max_pic_width * m_max_pic_height)) {
-        m_max_pic_width = l_curr_width;
-        m_max_pic_height = l_curr_height;
-      }
-    }
     //reset the preview and video sizes tables in case they were changed earlier
     copyList(savedSizes[mCameraId].all_preview_sizes, gCamCapability[mCameraId]->preview_sizes_tbl,
              savedSizes[mCameraId].all_preview_sizes_cnt);
