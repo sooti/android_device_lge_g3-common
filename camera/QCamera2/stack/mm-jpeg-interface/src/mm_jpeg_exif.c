@@ -302,7 +302,7 @@ int process_sensor_data(cam_sensor_params_t *p_sensor_params,
     return 0;
   }
 
-  ALOGD("%s:%d] From metadata aperture = %f ", __func__, __LINE__,
+  ALOGE("%s:%d] From metadata aperture = %f ", __func__, __LINE__,
     p_sensor_params->aperture_value );
 
   val_rat.num = (uint32_t)(p_sensor_params->aperture_value * 100);
@@ -321,7 +321,7 @@ int process_sensor_data(cam_sensor_params_t *p_sensor_params,
 
   if (!p_cam_exif_params->flash_presence) {
     if (p_cam_exif_params->ui_flash_mode == CAM_FLASH_MODE_AUTO) {
-      ALOGD("%s %d: flashmode auto, take from sensor: %d", __func__, __LINE__,
+      ALOGE("%s %d: flashmode auto, take from sensor: %d", __func__, __LINE__,
         p_sensor_params->flash_mode);
       if(p_sensor_params->flash_mode == CAM_FLASH_MODE_ON)
         flash_fired = FLASH_FIRED;
@@ -330,7 +330,7 @@ int process_sensor_data(cam_sensor_params_t *p_sensor_params,
 
       flash_mode = CAMERA_FLASH_AUTO;
     } else {
-      ALOGD("%s %d: flashmode from ui: %d", __func__, __LINE__, p_cam_exif_params->ui_flash_mode);
+      ALOGE("%s %d: flashmode from ui: %d", __func__, __LINE__, p_cam_exif_params->ui_flash_mode);
       if (p_cam_exif_params->ui_flash_mode == CAM_FLASH_MODE_ON) {
         flash_mode = CAMERA_FLASH_COMPULSORY;
         flash_fired = FLASH_FIRED;
@@ -356,7 +356,7 @@ int process_sensor_data(cam_sensor_params_t *p_sensor_params,
     strobe_state | flash_mode |
     flash_presence | red_eye_mode;
 
-  ALOGD("%s %d: flash_tag: 0x%x", __func__, __LINE__, flash_tag);
+  ALOGE("%s %d: flash_tag: 0x%x", __func__, __LINE__, flash_tag);
 
 
   /*FLASH*/
@@ -407,7 +407,7 @@ int process_3a_data(cam_ae_params_t *p_ae_params, QOMX_EXIF_INFO *exif_info)
       val_rat.num = 1;
       val_rat.denom = ROUND(1.0/p_ae_params->exp_time);
   }
-  ALOGD("%s: numer %d denom %d", __func__, val_rat.num, val_rat.denom );
+  ALOGE("%s: numer %d denom %d", __func__, val_rat.num, val_rat.denom );
 
   rc = addExifEntry(exif_info, EXIFTAGID_EXPOSURE_TIME, EXIF_RATIONAL,
     (sizeof(val_rat)/(8)), &val_rat);
