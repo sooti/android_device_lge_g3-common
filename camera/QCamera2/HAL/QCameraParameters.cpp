@@ -38,6 +38,8 @@
 #include "QCamera2HWI.h"
 #include "QCameraParameters.h"
 
+#include <g3_cam_capabilities.h>
+
 #define ASPECT_TOLERANCE 0.001
 #define FLIP_V_H (FLIP_H | FLIP_V)
 
@@ -3702,6 +3704,11 @@ int32_t QCameraParameters::initDefaultParameters()
     setFloat(KEY_VERTICAL_VIEW_ANGLE, m_pCapability->ver_view_angle);
     set(QCameraParameters::KEY_FOCUS_DISTANCES, "Infinity,Infinity,Infinity");
     // Set supported preview sizes
+    m_pCapability->preview_sizes_tbl_cnt = sizeof(fixed_preview_sizes_tbl) /
+                                           sizeof(fixed_preview_sizes_tbl[0]);
+    for (int i = 0; i < m_pCapability->preview_sizes_tbl_cnt; i++) {
+        m_pCapability->preview_sizes_tbl[i] = fixed_preview_sizes_tbl[i];
+    }
     if (m_pCapability->preview_sizes_tbl_cnt > 0 &&
         m_pCapability->preview_sizes_tbl_cnt <= MAX_SIZES_CNT) {
         String8 previewSizeValues = createSizesString(
@@ -3716,6 +3723,11 @@ int32_t QCameraParameters::initDefaultParameters()
     }
 
     // Set supported video sizes
+    m_pCapability->video_sizes_tbl_cnt = sizeof(fixed_video_sizes_tbl) /
+                                         sizeof(fixed_video_sizes_tbl[0]);
+    for (int i = 0; i < m_pCapability->video_sizes_tbl_cnt; i++) {
+        m_pCapability->video_sizes_tbl[i] = fixed_video_sizes_tbl[i];
+    }
     if (m_pCapability->video_sizes_tbl_cnt > 0 &&
         m_pCapability->video_sizes_tbl_cnt <= MAX_SIZES_CNT) {
         String8 videoSizeValues = createSizesString(
@@ -3734,6 +3746,11 @@ int32_t QCameraParameters::initDefaultParameters()
     }
 
     // Set supported picture sizes
+    m_pCapability->picture_sizes_tbl_cnt = sizeof(fixed_picture_sizes_tbl) /
+                                           sizeof(fixed_picture_sizes_tbl[0]);
+    for (int i = 0; i < m_pCapability->picture_sizes_tbl_cnt; i++) {
+        m_pCapability->picture_sizes_tbl[i] = fixed_picture_sizes_tbl[i];
+    }
     if (m_pCapability->picture_sizes_tbl_cnt > 0 &&
         m_pCapability->picture_sizes_tbl_cnt <= MAX_SIZES_CNT) {
         String8 pictureSizeValues = createSizesString(
@@ -3856,6 +3873,11 @@ int32_t QCameraParameters::initDefaultParameters()
     }
 
     // Set supported focus modes
+    m_pCapability->supported_focus_modes_cnt = sizeof(fixed_supported_focus_modes) /
+                                               sizeof(fixed_supported_focus_modes[0]);
+    for (int i = 0; i < m_pCapability->supported_focus_modes_cnt; i++) {
+        m_pCapability->supported_focus_modes[i] = fixed_supported_focus_modes[i];
+    }
     if (m_pCapability->supported_focus_modes_cnt > 0) {
         String8 focusModeValues = createValuesString(
                 (int *)m_pCapability->supported_focus_modes,
