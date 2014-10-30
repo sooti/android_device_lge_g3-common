@@ -117,7 +117,7 @@ extern "C" int get_camera_info(int camera_id, struct camera_info *info)
     if(info) {
         QCamera2Factory::get_camera_info(camera_id, info);
     }
-    ALOGE("Q%s: X", __func__);
+    ALOGV("Q%s: X", __func__);
     return rc;
 }
 
@@ -327,7 +327,7 @@ int recording_enabled(struct camera_device * device)
 void release_recording_frame(struct camera_device * device,
                 const void *opaque)
 {
-    ALOGE("Q%s: E", __func__);
+    ALOGV("Q%s: E", __func__);
     QCamera2HardwareInterface *hardware = util_get_Hal_obj(device);
     if(hardware != NULL){
         hardware->release_recording_frame(device, opaque);

@@ -801,7 +801,7 @@ int commitSetBatch(mm_camera_test_obj_t *test_obj)
 
     if (param_buf->num_entry > 0) {
         rc = test_obj->cam->ops->set_parms(test_obj->cam->camera_handle, param_buf);
-        ALOGE("%s:waiting for commitSetBatch to complete",__func__);
+        ALOGD("%s:waiting for commitSetBatch to complete",__func__);
         sem_wait(&param_buf->cam_sync_sem);
     }
 
@@ -816,7 +816,7 @@ int commitGetBatch(mm_camera_test_obj_t *test_obj)
 
     if (param_buf->num_entry > 0) {
         rc = test_obj->cam->ops->get_parms(test_obj->cam->camera_handle, param_buf);
-        ALOGE("%s:waiting for commitGetBatch to complete",__func__);
+        ALOGD("%s:waiting for commitGetBatch to complete",__func__);
         sem_wait(&param_buf->cam_sync_sem);
     }
     return rc;
@@ -844,7 +844,7 @@ int AddSetParmEntryToBatch(mm_camera_test_obj_t *test_obj,
      */
     for (j = 0; j < num_entry; j++) {
       if (paramType == curr_param->entry_type) {
-        ALOGE("%s:Batch parameter overwrite for param: %d",
+        ALOGD("%s:Batch parameter overwrite for param: %d",
                                                 __func__, paramType);
         break;
       }
@@ -870,7 +870,7 @@ int AddSetParmEntryToBatch(mm_camera_test_obj_t *test_obj,
     curr_param->size = (int32_t)paramLength;
     curr_param->aligned_size = aligned_size_req;
     memcpy(&curr_param->data[0], paramValue, paramLength);
-    ALOGE("%s: num_entry: %d, paramType: %d, paramLength: %d, aligned_size_req: %d",
+    ALOGD("%s: num_entry: %d, paramType: %d, paramLength: %d, aligned_size_req: %d",
             __func__, param_buf->num_entry, paramType, paramLength, aligned_size_req);
 
     return MM_CAMERA_OK;

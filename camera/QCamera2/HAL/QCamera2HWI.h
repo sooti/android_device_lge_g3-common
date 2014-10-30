@@ -56,14 +56,14 @@ extern "C" {
 
 inline void __null_log(int, const char *, const char *, ...) {}
 
-#ifdef ALOGE
-#undef ALOGE
-#define ALOGE(...) do { __null_log(0, LOG_TAG,__VA_ARGS__); } while (0)
+#ifdef ALOGD
+#undef ALOGD
+#define ALOGD(...) do { __null_log(0, LOG_TAG,__VA_ARGS__); } while (0)
 #endif
 
-#ifdef ALOGE
-#undef ALOGE
-#define ALOGE(...) do { __null_log(0, LOG_TAG,__VA_ARGS__); } while (0)
+#ifdef ALOGI
+#undef ALOGI
+#define ALOGI(...) do { __null_log(0, LOG_TAG,__VA_ARGS__); } while (0)
 #endif
 
 #endif

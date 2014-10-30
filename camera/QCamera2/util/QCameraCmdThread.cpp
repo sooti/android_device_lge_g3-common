@@ -145,7 +145,7 @@ camera_cmd_type_t QCameraCmdThread::getCmd()
     camera_cmd_type_t cmd = CAMERA_CMD_TYPE_NONE;
     camera_cmd_t *node = (camera_cmd_t *)cmd_queue.dequeue();
     if (NULL == node) {
-        ALOGE("%s: No notify avail", __func__);
+        ALOGD("%s: No notify avail", __func__);
         return CAMERA_CMD_TYPE_NONE;
     } else {
         cmd = node->cmd;
@@ -181,7 +181,7 @@ int32_t QCameraCmdThread::exit()
 
     /* wait until cmd thread exits */
     if (pthread_join(cmd_pid, NULL) != 0) {
-        ALOGE("%s: pthread dead already\n", __func__);
+        ALOGD("%s: pthread dead already\n", __func__);
     }
     cmd_pid = 0;
     return rc;

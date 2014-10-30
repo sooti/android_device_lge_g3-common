@@ -129,14 +129,14 @@ int QCamera2Factory::getNumberOfCameras()
 int QCamera2Factory::getCameraInfo(int camera_id, struct camera_info *info)
 {
     int rc;
-    ALOGE("%s: E, camera_id = %d", __func__, camera_id);
+    ALOGV("%s: E, camera_id = %d", __func__, camera_id);
 
     if (!mNumOfCameras || camera_id >= mNumOfCameras || !info) {
         return INVALID_OPERATION;
     }
 
     rc = QCamera2HardwareInterface::getCapabilities(camera_id, info);
-    ALOGE("%s: X", __func__);
+    ALOGV("%s: X", __func__);
     return rc;
 }
 

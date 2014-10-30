@@ -51,7 +51,7 @@ void *QCameraStateMachine::smEvtProcRoutine(void *data)
     int running = 1, ret;
     QCameraStateMachine *pme = (QCameraStateMachine *)data;
 
-    ALOGE("%s: E", __func__);
+    ALOGD("%s: E", __func__);
     do {
         do {
             ret = cam_sem_wait(&pme->cmd_sem);
@@ -93,7 +93,7 @@ void *QCameraStateMachine::smEvtProcRoutine(void *data)
             node = NULL;
         }
     } while (running);
-    ALOGE("%s: X", __func__);
+    ALOGD("%s: X", __func__);
     return NULL;
 }
 
@@ -144,7 +144,7 @@ QCameraStateMachine::~QCameraStateMachine()
 
             /* wait until cmd thread exits */
             if (pthread_join(cmd_pid, NULL) != 0) {
-                ALOGE("%s: pthread dead already\n", __func__);
+                ALOGD("%s: pthread dead already\n", __func__);
             }
         }
         cmd_pid = 0;
@@ -432,7 +432,7 @@ int32_t QCameraStateMachine::procEvtPreviewStoppedState(qcamera_sm_evt_enum_t ev
     case QCAMERA_SM_EVT_STOP_PREVIEW:
         {
             // no op needed here
-            ALOGE("%s: already in preview stopped state, do nothing", __func__);
+            ALOGD("%s: already in preview stopped state, do nothing", __func__);
             result.status = NO_ERROR;
             result.request_api = evt;
             result.result_type = QCAMERA_API_RESULT_TYPE_DEF;
@@ -507,7 +507,7 @@ int32_t QCameraStateMachine::procEvtPreviewStoppedState(qcamera_sm_evt_enum_t ev
     case QCAMERA_SM_EVT_CANCEL_PICTURE:
         {
             // no op needed here
-            ALOGE("%s: No ops for evt(%d) in state(%d)", __func__, evt, m_state);
+            ALOGD("%s: No ops for evt(%d) in state(%d)", __func__, evt, m_state);
             result.status = NO_ERROR;
             result.request_api = evt;
             result.result_type = QCAMERA_API_RESULT_TYPE_DEF;
@@ -1007,7 +1007,7 @@ int32_t QCameraStateMachine::procEvtPreviewingState(qcamera_sm_evt_enum_t evt,
     case QCAMERA_SM_EVT_START_NODISPLAY_PREVIEW:
         {
             // no ops here
-            ALOGE("%s: Already in previewing, no ops here to start preview", __func__);
+            ALOGD("%s: Already in previewing, no ops here to start preview", __func__);
             rc = NO_ERROR;
             result.status = rc;
             result.request_api = evt;
@@ -1231,7 +1231,7 @@ int32_t QCameraStateMachine::procEvtPreviewingState(qcamera_sm_evt_enum_t evt,
                 }
                 break;
             default:
-                ALOGE("%s: no handling for server evt (%d) at this state",
+                ALOGD("%s: no handling for server evt (%d) at this state",
                       __func__, cam_evt->server_event_type);
                 break;
             }
@@ -1327,7 +1327,7 @@ int32_t QCameraStateMachine::procEvtPrepareSnapshotState(qcamera_sm_evt_enum_t e
                 rc = m_parent->processAutoFocusEvent(internal_evt->focus_data);
                 break;
             case QCAMERA_INTERNAL_EVT_PREP_SNAPSHOT_DONE:
-                ALOGE("%s: Received QCAMERA_INTERNAL_EVT_PREP_SNAPSHOT_DONE event",
+                ALOGI("%s: Received QCAMERA_INTERNAL_EVT_PREP_SNAPSHOT_DONE event",
                     __func__);
                 m_parent->processPrepSnapshotDoneEvent(internal_evt->prep_snapshot_state);
                 m_state = QCAMERA_SM_STATE_PREVIEWING;
@@ -1690,7 +1690,7 @@ int32_t QCameraStateMachine::procEvtPicTakingState(qcamera_sm_evt_enum_t evt,
                 }
                 break;
             default:
-                ALOGE("%s: no handling for server evt (%d) at this state",
+                ALOGD("%s: no handling for server evt (%d) at this state",
                       __func__, cam_evt->server_event_type);
                 break;
             }
@@ -1955,7 +1955,7 @@ int32_t QCameraStateMachine::procEvtRecordingState(qcamera_sm_evt_enum_t evt,
     case QCAMERA_SM_EVT_START_RECORDING:
         {
             // no ops here
-            ALOGE("%s: already in recording state, no ops for start_recording", __func__);
+            ALOGD("%s: already in recording state, no ops for start_recording", __func__);
             rc = 0;
             result.status = rc;
             result.request_api = evt;

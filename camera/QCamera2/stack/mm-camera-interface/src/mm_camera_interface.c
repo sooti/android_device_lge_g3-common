@@ -1236,7 +1236,7 @@ void get_sensor_info()
                 temp = entity.flags;
                 mount_angle = (temp & 0xFF) * 90;
                 facing = (temp >> 8);
-                ALOGE("index = %d flag = %x mount_angle = %d facing = %d\n"
+                ALOGD("index = %d flag = %x mount_angle = %d facing = %d\n"
                     , num_cameras, (unsigned int)temp, (unsigned int)mount_angle,
                     (unsigned int)facing);
                 g_cam_ctrl.info[num_cameras].facing = facing;
