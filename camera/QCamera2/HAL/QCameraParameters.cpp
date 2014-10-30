@@ -3698,6 +3698,8 @@ int32_t QCameraParameters::initDefaultParameters()
     set(KEY_MAX_NUM_DETECTED_FACES_HW, m_pCapability->max_num_roi);
     set(KEY_MAX_NUM_DETECTED_FACES_SW, m_pCapability->max_num_roi);
     set(KEY_QC_MAX_NUM_REQUESTED_FACES, m_pCapability->max_num_roi);
+    set(KEY_MAX_EXPOSURE_COMPENSATION, "12");
+    set(KEY_MIN_EXPOSURE_COMPENSATION, "-12");
     // Set focal length, horizontal view angle, and vertical view angle
     setFloat(KEY_FOCAL_LENGTH, m_pCapability->focal_length);
     setFloat(KEY_HORIZONTAL_VIEW_ANGLE, m_pCapability->hor_view_angle);
