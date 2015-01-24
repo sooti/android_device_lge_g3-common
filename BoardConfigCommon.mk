@@ -96,9 +96,6 @@ TARGET_PROVIDES_LIBLIGHT := true
 # Media		
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
-# NFC
-BOARD_NFC_CHIPSET := pn547
-
 # Offmode Charging
 COMMON_GLOBAL_CFLAGS += \
     -DBOARD_CHARGING_CMDLINE_NAME='"androidboot.mode"' \
