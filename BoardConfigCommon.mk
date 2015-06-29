@@ -85,10 +85,11 @@ OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
 
-# HealthD
-HEALTHD_FORCE_BACKLIGHT_CONTROL := true
-HEALTHD_BACKLIGHT_ON_LEVEL := 150
+# Healthd
 HEALTHD_ENABLE_TRICOLOR_LED := true
+RED_LED_PATH := /sys/class/leds/red/brightness
+GREEN_LED_PATH := /sys/class/leds/green/brightness
+BLUE_LED_PATH := /sys/class/leds/blue/brightness
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
