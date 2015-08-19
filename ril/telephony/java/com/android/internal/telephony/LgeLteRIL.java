@@ -79,42 +79,22 @@ public class LgeLteRIL extends RIL implements CommandsInterface {
             appStatus.pin1           = appStatus.PinStateFromRILInt(p.readInt());
             appStatus.pin2           = appStatus.PinStateFromRILInt(p.readInt());
             int remaining_count_pin1 = p.readInt();
-            int reamining_count_puk1 = p.readInt();
-            int reamining_count_pin2 = p.readInt();
-            int reamining_count_puk2 = p.readInt();
+            int remaining_count_puk1 = p.readInt();
+            int remaining_count_pin2 = p.readInt();
+            int remaining_count_puk2 = p.readInt();
             cardStatus.mApplications[i] = appStatus;
         }
         return cardStatus;
     }
 
-    // Hack for Lollipop
-    // The system now queries for SIM status before radio on, resulting
-    // in getting an APPSTATE_DETECTED state. The RIL does not send an
-    // RIL_UNSOL_RESPONSE_SIM_STATUS_CHANGED message after the SIM is
-    // initialized, so delay the message until the radio is on.
-    @Override
-    public void
-    getIccCardStatus(Message result) {
-        if (mState != RadioState.RADIO_ON) {
-            mPendingGetSimStatus = result;
-        } else {
-            super.getIccCardStatus(result);
-        }
-    }
-
-    @Override
-    protected void switchToRadioState(RadioState newState) {
-        super.switchToRadioState(newState);
-
-        if (newState == RadioState.RADIO_ON && mPendingGetSimStatus != null) {
-            super.getIccCardStatus(mPendingGetSimStatus);
-            mPendingGetSimStatus = null;
-        }
-    }
-
     @Override
     protected void
     processUnsolicited (Parcel p) {
+        if(mRilVersion >= 10) {
+            super.processUnsolicited(p);
+            return;
+        }
+
         Object ret;
         int dataPosition = p.dataPosition(); // save off position within the Parcel
         int response = p.readInt();
@@ -147,12 +127,17 @@ public class LgeLteRIL extends RIL implements CommandsInterface {
         }
     }
 
-    // This call causes ril to crash the socket, stopping further communication
+    // This call causes ril to crash the socket on ril versions previous to 10, stopping further communication
     @Override
     public void
     getHardwareConfig (Message result) {
-        riljLog("Ignoring call to 'getHardwareConfig'");
+        if(mRilVersion >= 10) {
+            super.getHardwareConfig(result);
+            return;
+        }
+
         if (result != null) {
+            riljLog("Ignoring call to 'getHardwareConfig' for ril version < 10");
             CommandException ex = new CommandException(
                 CommandException.Error.REQUEST_NOT_SUPPORTED);
             AsyncResult.forMessage(result, null, ex);
