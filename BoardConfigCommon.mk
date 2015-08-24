@@ -40,12 +40,13 @@ TARGET_NO_BOOTLOADER := true
 # Kernel
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=g3 user_debug=31 msm_rtb.filter=0x0 androidboot.bootdevice=msm_sdcc.1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.selinux=permissive androidboot.hardware=g3 user_debug=31 msm_rtb.filter=0x0 androidboot.bootdevice=msm_sdcc.1
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0008000 --ramdisk_offset 0x2000000
 TARGET_KERNEL_SOURCE := kernel/lge/g3
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -70,7 +71,6 @@ BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/
 
 # Display
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
 
@@ -82,6 +82,12 @@ OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
+
+# Healthd
+HEALTHD_ENABLE_TRICOLOR_LED := true
+RED_LED_PATH := /sys/class/leds/red/brightness
+GREEN_LED_PATH := /sys/class/leds/green/brightness
+BLUE_LED_PATH := /sys/class/leds/blue/brightness
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
@@ -98,10 +104,14 @@ COMMON_GLOBAL_CFLAGS += \
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Power
+TARGET_PROVIDES_POWERHAL := true
 TARGET_POWERHAL_VARIANT := qcom
 
 # Qualcomm support
 BOARD_USES_QCOM_HARDWARE := true
+TARGET_QCOM_DISPLAY_VARIANT := caf-bfam
+TARGET_QCOM_MEDIA_VARIANT := caf-bfam
+TARGET_QCOM_AUDIO_VARIANT := caf-bfam
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -113,6 +123,18 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 # Radio
 BOARD_RIL_CLASS := ../../../device/lge/g3-common/ril/
+
+# TWRP
+TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TW_THEME := portrait_hdpi
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_NO_USB_STORAGE := true
+TW_INCLUDE_L_CRYPTO := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_NO_REAL_SDCARD := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk

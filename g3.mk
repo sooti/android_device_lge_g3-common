@@ -16,8 +16,6 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-$(call inherit-product-if-exists, vendor/lge/g3-common/g3-common-vendor.mk)
-
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
@@ -108,6 +106,10 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8974
+
+# TWRP
+PRODUCT_COPY_FILES += \
+   $(LOCAL_PATH)/configs/recovery.fstab:recovery/root/etc/twrp.fstab
 
 # IRSC
 PRODUCT_COPY_FILES += \
@@ -213,3 +215,5 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     wpa_supplicant \
     wpa_supplicant.conf
+
+$(call inherit-product-if-exists, vendor/lge/g3-common/g3-common-vendor.mk)
