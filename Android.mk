@@ -16,7 +16,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter g3 d850 d851 d852 d855 ls990 vs985, $(TARGET_DEVICE)),)
+ifneq ($(filter g3 d850 d851 d852 d855 ls990 vs985 f400, $(TARGET_DEVICE)),)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
@@ -90,7 +90,7 @@ ALL_DEFAULT_INSTALLED_MODULES += $(WCD9320_SYMLINKS)
 WIDEVINE_IMAGES := \
     widevine.b00 widevine.b01 widevine.b02 widevine.b03 widevine.mdt
 
-WIDEVINE_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(WIDEVINE_IMAGES))
+WIDEVINE_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(WIDEVINE_IMAGES))
 $(WIDEVINE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "widevine firmware link: $@"
 	@mkdir -p $(dir $@)
