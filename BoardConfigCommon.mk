@@ -92,6 +92,9 @@ BLUE_LED_PATH := /sys/class/leds/blue/brightness
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
+# Media		
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+
 # NFC
 BOARD_NFC_CHIPSET := pn547
 
